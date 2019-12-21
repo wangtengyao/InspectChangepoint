@@ -1,0 +1,8 @@
+exportPattern("^[[:alpha:]]+")
+import(stats)
+import(graphics)
+import(MASS)
+S3method(print, inspect)
+S3method(summary, inspect)
+S3method(plot, inspect)
+S3method(plot, hdchangeseq)

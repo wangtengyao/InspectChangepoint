@@ -1,0 +1,10 @@
+Package: InspectChangepoint
+Type: Package
+Title: High-Dimensional Changepoint Estimation via Sparse Projection
+Version: 1.0
+Date: 2016-06-24
+Author: Tengyao Wang and Richard Samworth
+Maintainer: Tengyao Wang <t.wang@statslab.cam.ac.uk>
+Imports: stats, graphics, MASS
+Description: Provides a data-driven projection-based method for estimating changepoints in high-dimensional time series. Multiple changepoints are estimated using a (wild) binary segmentation scheme.
+License: GPL-3
