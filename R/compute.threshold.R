@@ -6,6 +6,7 @@
 #' @return A numeric value indicating the threshold level that should be used based on the Monte Carlo simulation.
 #' @examples
 #' compute.threshold(n=200, p=50)
+#' @export
 
 compute.threshold <- function(n, p, nrep=100){
     cusum.stats = rep(0,nrep)

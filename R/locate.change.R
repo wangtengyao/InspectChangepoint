@@ -28,11 +28,13 @@
 #'   univariate time series associated with the estimated changepoint.
 #' }
 #' @references Wang, T., Samworth, R. J. (2016) High-dimensional changepoint estimation via sparse projection. Arxiv preprint: arxiv1606.06246.
-#' @example n <- 2000; p <- 1000; k <- 32; z <- 400; vartheta <- 0.12; sigma <- 1; shape <- 3
+#' @examples
+#' n <- 2000; p <- 1000; k <- 32; z <- 400; vartheta <- 0.12; sigma <- 1; shape <- 3
 #' noise <- 0; corr <- 0
 #' obj <- single.change(n,p,k,z,vartheta,sigma,shape,noise,corr)
 #' x <- obj$x
 #' locate.change(x)
+#' @export
 
 locate.change <- function(x, lambda, schatten=2, sample.splitting=FALSE,
                           standardize.series=FALSE)

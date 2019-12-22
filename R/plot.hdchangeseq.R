@@ -11,6 +11,7 @@
 #' varthetas <- c(0.1,0.15,0.2); overlap <- 0.5
 #' obj <- multi.change(n, p, ks, zs, varthetas, overlap)
 #' plot(obj, noise = TRUE)
+#' @export
 
 plot.hdchangeseq <-
 function(obj, noise = TRUE, shuffle = FALSE, ...){

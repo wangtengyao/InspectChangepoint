@@ -4,6 +4,7 @@
 #' @param q a nonnegative real number or Inf
 #' @param na.rm boolean, whether to remove NA before calculation
 #' @return the entrywise L_q norm of a vector or a matrix
+#' @export
 
 vector.norm <- function(v, q=2, na.rm=FALSE){
     if (na.rm) v <- na.omit(v)

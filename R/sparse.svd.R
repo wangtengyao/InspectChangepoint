@@ -17,6 +17,7 @@
 #' Z <- matrix(rnorm(20),4,5)
 #' lambda <- 0.5
 #' sparse.svd(Z, lambda)
+#' @export
 
 sparse.svd <- function(Z, lambda, schatten=c(1, 2), tolerance=1e-5, max.iter=10000){
     if (missing(schatten)) schatten <- 2

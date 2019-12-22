@@ -10,6 +10,7 @@
 #' @examples
 #' x <- matrix(rnorm(20),4,5)
 #' cusum.transform(x)
+#' @export
 
 cusum.transform <- function(x){
     x <- as.matrix(x)

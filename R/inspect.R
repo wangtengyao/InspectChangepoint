@@ -21,7 +21,7 @@
 #'
 #' @references Wang, T. and Samworth, R. J. (2016) High-dimensional changepoint estimation via sparse projection. Arxiv preprint: arxiv1606.06246.
 #'
-#' @example
+#' @examples
 #' n <- 500; p <- 100; ks <- 30; zs <- c(125,250,375)
 #' varthetas <- c(0.1,0.15,0.2); overlap <- 0.5
 #' obj <- multi.change(n, p, ks, zs, varthetas, overlap)
@@ -31,6 +31,7 @@
 #' ret
 #' summary(ret)
 #' plot(ret)
+#' @export
 
 inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
     # basic parameters and initialise

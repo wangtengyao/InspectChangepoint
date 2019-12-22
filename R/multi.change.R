@@ -21,6 +21,7 @@
 #' zs <- c(500,1000,1500); varthetas <- c(0.1,0.15,0.2); overlap <- 0.5
 #' obj <- multi.change(n, p, ks, zs, varthetas, overlap)
 #' plot(obj, noise = TRUE)
+#' @export
 
 multi.change <- function(n, p, ks, zs, varthetas, sigma=1, overlap=0, shape=3)
     # generate a multivariate time series panel data with n time points and p dimensional

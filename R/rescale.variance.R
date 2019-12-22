@@ -7,6 +7,7 @@
 #' x <- matrix(rnorm(40),5,8) * (1:5)
 #' x.rescaled <- rescale.variance(x)
 #' x.rescaled
+#' @export
 
 rescale.variance <- function(x){
     p <- dim(x)[1]

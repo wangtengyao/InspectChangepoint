@@ -7,6 +7,7 @@
 #' @examples
 #' v <- rnorm(10)
 #' PiW(v)
+#' @export
 
 PiW <- function(v){
     # projection of a vector to the standard simplex (non-negative entries
