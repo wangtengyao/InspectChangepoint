@@ -1,6 +1,9 @@
-vector.soft.thresh <-
-function(x, lambda){
-    # soft thresholding, moving entries of x towards 0 by amount lambda,
-    # until hits 0
-    sign(x)*pmax(0,(abs(x)-lambda))
+#' Soft thresholding a vector
+#' @param x a vector of real numbers
+#' @param lambda soft thresholding value
+#' @return a vector of the same length
+#' @description entries of v are moved towards 0 by the amount lambda until they hit 0.
+
+vector.soft.thresh <- function(x, lambda){
+  sign(x)*pmax(0,(abs(x) - lambda))
 }
