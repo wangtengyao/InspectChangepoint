@@ -25,6 +25,8 @@ is without sample splitting.}
 \item{standardize.series}{Whether the given time series should be
 standardised before estimating the projection direction. Default is FALSE,
 i.e. the input series is assume to have variance 1 in each coordinate.}
+
+\item{view.cusum}{Whether to show a plot of the projected CUSUM series}
 }
 \value{
 A list of two items:
@@ -35,6 +37,7 @@ A list of two items:
   onwards.
   \item cusum - The maximum absolute CUSUM statistic of the projected
   univariate time series associated with the estimated changepoint.
+  \item vector.proj - the vector of projection, which is proportional to an estimate of the vector of change.
 }
 }
 \description{
