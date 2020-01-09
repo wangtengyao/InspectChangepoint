@@ -1,8 +1,18 @@
-compute.threshold <-
-function(n,p,nrep = 100){
+#' Computing threshold used in \code{inspect}
+#' @description The threshold level to be used in \code{inspect} is computed via Monte Carlo simulation of multivariate time series that do not contain any changepoints.
+#' @param n Time length of the observation.
+#' @param p Dimension of the multivariate time series.
+#' @param Number of Monte Carlo repetition to be used.
+#' @return A numeric value indicating the threshold level that should be used based on the Monte Carlo simulation.
+#' @examples
+#' compute.threshold(n=200, p=50)
+#' @export
+
+compute.threshold <- function(n, p, nrep=100){
     cusum.stats = rep(0,nrep)
     for (i in 1:nrep) {
-        cusum.stats[i] = locate.change(single.change(n,p,1,n-1,0)$x)$cusum
+        x <- single.change(n, p, 1, n - 1, 0)$x
+        cusum.stats[i] = locate.change(x)$cusum
     }
     as.numeric(max(cusum.stats))
 }
