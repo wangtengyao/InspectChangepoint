@@ -2,7 +2,7 @@ sparse.svd <-
 function(Z, lambda, schatten = c(1, 2), tolerance = 1e-5, max.iter = 10000){
     if (missing(schatten)) schatten <- 2
     if (schatten == 2){
-        # with Frobenius norm constraint, the sparse vector is obtained by soft 
+        # with Frobenius norm constraint, the sparse vector is obtained by soft
         # thresholding
         Mhat <- vector.soft.thresh(Z, lambda)
     } else {
@@ -19,6 +19,14 @@ function(Z, lambda, schatten = c(1, 2), tolerance = 1e-5, max.iter = 10000){
         }
         Mhat <- X
     }
-    vector.proj <- eigen(Mhat%*%t(Mhat), symmetric = TRUE)$vectors[,1]
+
+    if (nrow(Mhat) < ncol(Mhat)){
+        vector.proj <- power.method(Mhat%*%t(Mhat), 1e-5)
+    } else {
+        tmp <- Mhat %*% power.method(t(Mhat)%*%Mhat, 1e-5)
+        vector.proj <- tmp/vector.norm(tmp)
+    }
+
     return(vector.proj)
 }
+
