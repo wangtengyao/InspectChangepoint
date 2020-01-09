@@ -101,6 +101,7 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
 #' Print function for 'inspect' class objects
 #' @param obj an 'inspect' class object
 #' @seealso \code{\link{inspect}}
+#' @export
 print.inspect <- function(obj, ...){
     print(obj$changepoints[, 1])
 }
@@ -109,6 +110,7 @@ print.inspect <- function(obj, ...){
 #' Summary function for 'inspect' class objects
 #' @param obj an 'inspect' class object
 #' @seealso \code{\link{inspect}}
+#' @export
 summary.inspect <- function(obj, ...){
     obj$changepoints
 }
@@ -117,6 +119,7 @@ summary.inspect <- function(obj, ...){
 #' Plot function for 'inspect' class objects
 #' @param obj an 'inspect' class object
 #' @seealso \code{\link{inspect}}
+#' @export
 plot.inspect <- function(obj, ...){
         p = dim(obj$x)[1]
         n = dim(obj$x)[2]
