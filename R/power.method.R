@@ -1,11 +1,13 @@
-#' Power method for finding the leading left singular vector of a matrix
-#' @param A a rectangular
+#' Power method for finding the leading eigenvector of a symmetric matrix
+#' @param A a square symmetric matrix
 #' @param eps tolerance for convergence (in Frobenius norm)
 #' @param maxiter maximum iteration
 #' @return a unit-length leading eigenvector of A
 #' @export
 power.method <- function(A, eps = 1e-10, maxiter = 10000){
   if (nrow(A) != ncol(A)) stop('powerMethod requires a square matrix')
+  if (!all.equal(A, t(A))) stop('powerMethod requires a symmetric matrix')
+
   d <- nrow(A)
   v <- rnorm(d); v <- v/vector.norm(v)
 
