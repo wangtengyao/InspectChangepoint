@@ -24,16 +24,18 @@
 #' @export
 
 multi.change <- function(n, p, ks, zs, varthetas, sigma=1, overlap=0, shape=3)
-    # generate a multivariate time series panel data with n time points and p dimensional
-    # zs varthetas and ks are equal length vectors describing location,
-    # magnitude and sparsity of changepoints
-    # overlap describes how the changepoint coordinates are chosen,
-    # 0 means no overlap, 1 means maximal overlap
-    # 0.5 means half overlap, -1 means random
 {
     # validating arguments
-    nu = length(zs); if (length(ks) == 1) {ks = rep(ks, nu)}; if (length(varthetas) == 1) {varthetas = rep(varthetas, nu)}
-    stopifnot(nu == length(varthetas), nu == length(ks), min(zs) >=1, max(zs) < n, max(ks) <= p)
+    nu = length(zs);
+    if (length(ks) == 1) {ks = rep(ks, nu)}
+    if (length(varthetas) == 1) {varthetas = rep(varthetas, nu)}
+    stopifnot(
+        nu == length(varthetas),
+        nu == length(ks),
+        min(zs) >=1,
+        max(zs) < n,
+        max(ks) <= p
+    )
 
     # generating change vectors
     change = matrix(0, p, nu)

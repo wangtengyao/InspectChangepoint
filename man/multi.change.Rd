@@ -26,9 +26,9 @@ multi.change(n, p, ks, zs, varthetas, sigma = 1, overlap = 0,
 }
 \value{
 An S3 object of the class 'hdchangeseq' is returned.
-\list{
-\item x - The generated data matrix
-\item mu - The mean structure of the data matrix
+\itemize{
+  \item x - The generated data matrix
+  \item mu - The mean structure of the data matrix
 }
 }
 \description{

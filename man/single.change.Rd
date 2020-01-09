@@ -29,9 +29,9 @@ single.change(n, p, k, z, vartheta, sigma = 1, shape = 3, noise = 0,
 }
 \value{
 An S3 object of the class 'hdchangeseq' is returned.
-\list{
-\item x - The generated data matrix
-\item mu - The mean structure of the data matrix
+\itemize{
+  \item x - The generated data matrix
+  \item mu - The mean structure of the data matrix
 }
 }
 \description{
