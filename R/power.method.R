@@ -17,6 +17,6 @@ power.method <- function(A, eps = 1e-10, maxiter = 10000){
     v <- v_new
   }
   if (i == maxiter) warning('max iter reached without convergence.')
-  return(v_new)
+  return(as.numeric(v_new))
 }
 
