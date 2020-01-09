@@ -18,7 +18,7 @@ Performing CUSUM transformation to the input matrix of multivariate time series.
 \details{
 For any integers p and n, the CUSUM transformation \eqn{T_{p,n}: R^{p\times n}\to R^{p\times (n-1)}} is defined by
 \deqn{
-   [T_{p,n}(M)]_{j,t} := \sqrt{t(n-t)/n}\biggl(\frac{1}{n-t}\sum_{r=t+1}^n M_{j,r} - #' \frac{1}{t}\sum_{r=1}^t M_{j,r}\biggr).
+   [T_{p,n}(M)]_{j,t} := \sqrt{t(n-t)/n}\biggl(\frac{1}{n-t}\sum_{r=t+1}^n M_{j,r} - \frac{1}{t}\sum_{r=1}^t M_{j,r}\biggr).
 }
 }
 \examples{

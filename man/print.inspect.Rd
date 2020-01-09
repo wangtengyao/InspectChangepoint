@@ -4,10 +4,12 @@
 \alias{print.inspect}
 \title{Print function for 'inspect' class objects}
 \usage{
-\method{print}{inspect}(obj, ...)
+\method{print}{inspect}(x, ...)
 }
 \arguments{
-\item{obj}{an 'inspect' class object}
+\item{x}{an 'inspect' class object}
+
+\item{...}{other arguments to be passed to methods are not used}
 }
 \description{
 Print function for 'inspect' class objects

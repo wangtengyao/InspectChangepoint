@@ -19,7 +19,7 @@
 #' \item{changepoints }{A matrix with three columns. The first column contains the locations of estimated changepoints sorted in increasing order; the second column contains the maximum CUSUM statistics of the projected univariate time series associated with each estimated changepoint; the third column contains the depth of binary segmentation for each detected changepoint.}
 #' }
 #'
-#' @references Wang, T. and Samworth, R. J. (2016) High-dimensional changepoint estimation via sparse projection. Arxiv preprint: arxiv1606.06246.
+#' @references Wang, T. and Samworth, R. J. (2018) High dimensional changepoint estimation via sparse projection. \emph{J. Roy. Statist. Soc., Ser. B}, \strong{80}, 57--83.
 #'
 #' @examples
 #' n <- 500; p <- 100; ks <- 30; zs <- c(125,250,375)
@@ -31,6 +31,8 @@
 #' ret
 #' summary(ret)
 #' plot(ret)
+#' @import stats
+#' @import graphics
 #' @export
 
 inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
@@ -99,32 +101,36 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
 
 
 #' Print function for 'inspect' class objects
-#' @param obj an 'inspect' class object
+#' @param x an 'inspect' class object
+#' @param ... other arguments to be passed to methods are not used
 #' @seealso \code{\link{inspect}}
 #' @export
-print.inspect <- function(obj, ...){
-    print(obj$changepoints[, 1])
+print.inspect <- function(x, ...){
+    print(x$changepoints[, 1])
 }
 
 
 #' Summary function for 'inspect' class objects
-#' @param obj an 'inspect' class object
+#' @param object an 'inspect' class object
+#' @param ... other arguments to be passed to methods are not used
 #' @seealso \code{\link{inspect}}
 #' @export
-summary.inspect <- function(obj, ...){
-    obj$changepoints
+summary.inspect <- function(object, ...){
+    object$changepoints
 }
 
 
 #' Plot function for 'inspect' class objects
-#' @param obj an 'inspect' class object
+#' @param x an 'inspect' class object
+#' @param ... other arguments to be passed to methods are not used
 #' @seealso \code{\link{inspect}}
 #' @export
-plot.inspect <- function(obj, ...){
-        p = dim(obj$x)[1]
-        n = dim(obj$x)[2]
+plot.inspect <- function(x, ...){
+        obj <- x
+        p <- dim(obj$x)[1]
+        n <- dim(obj$x)[2]
         image(1:n, 1:p, t(obj$x), xlab='time', ylab='coordinate', axes=TRUE,
               frame.plot=TRUE)
-        result = as.matrix(obj$changepoints)
+        result <- as.matrix(obj$changepoints)
         abline(v=result[, 1], col='blue')
     }

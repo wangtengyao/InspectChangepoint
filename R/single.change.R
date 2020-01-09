@@ -25,6 +25,7 @@
 #' shape <- 3; noise <- 0; corr <- 0
 #' obj <- single.change(n,p,k,z,vartheta,sigma, shape, noise, corr)
 #' plot(obj, noise = TRUE)
+#' @importFrom MASS mvrnorm
 #' @export
 
 single.change <- function(n, p, k, z, vartheta, sigma = 1, shape = 3, noise = 0,

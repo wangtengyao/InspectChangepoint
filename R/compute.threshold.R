@@ -2,7 +2,7 @@
 #' @description The threshold level to be used in \code{inspect} is computed via Monte Carlo simulation of multivariate time series that do not contain any changepoints.
 #' @param n Time length of the observation.
 #' @param p Dimension of the multivariate time series.
-#' @param Number of Monte Carlo repetition to be used.
+#' @param nrep Number of Monte Carlo repetition to be used.
 #' @return A numeric value indicating the threshold level that should be used based on the Monte Carlo simulation.
 #' @examples
 #' compute.threshold(n=200, p=50)

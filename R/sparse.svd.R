@@ -8,7 +8,7 @@
 #'
 #' @param Z Input matrix whose left leading singular vector is to be estimated.
 #' @param lambda Regularisation parameter
-#' @param shatten Schatten norm constraint to be used. Default uses Schatten-2-norm, i.e. the Frobenius norm. Also possible to use Schatten-1-norm, the nuclear norm.
+#' @param schatten Schatten norm constraint to be used. Default uses Schatten-2-norm, i.e. the Frobenius norm. Also possible to use Schatten-1-norm, the nuclear norm.
 #' @param tolerance Tolerance criterion for convergence of the ADMM algorithm. Not used when shatten=2.
 #' @param max.iter Maximum number of iteration in the ADMM algorithm. Not used when shatten=2.
 #'

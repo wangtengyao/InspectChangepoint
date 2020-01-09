@@ -3,7 +3,6 @@
 #' series. It uses the function \code{\link{sparse.svd}} to estimate the best
 #' projection direction, then using univariate CUSUM statistics of the projected
 #' time series to estimate the changepoint location.
-#' @usage locate.change(x, lambda, schatten = 2, sample.splitting = FALSE, standardize.series = FALSE)
 #' @param x A (p x n) data matrix of multivariate time series, each column
 #' represents a data point
 #' @param lambda Regularisation parameter. If no value is supplied, the dafault

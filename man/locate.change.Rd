@@ -4,7 +4,8 @@
 \alias{locate.change}
 \title{Single changepoint estimation}
 \usage{
-locate.change(x, lambda, schatten = 2, sample.splitting = FALSE, standardize.series = FALSE)
+locate.change(x, lambda, schatten = 2, sample.splitting = FALSE,
+  standardize.series = FALSE, view.cusum = FALSE)
 }
 \arguments{
 \item{x}{A (p x n) data matrix of multivariate time series, each column

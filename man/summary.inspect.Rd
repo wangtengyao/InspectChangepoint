@@ -4,10 +4,12 @@
 \alias{summary.inspect}
 \title{Summary function for 'inspect' class objects}
 \usage{
-\method{summary}{inspect}(obj, ...)
+\method{summary}{inspect}(object, ...)
 }
 \arguments{
-\item{obj}{an 'inspect' class object}
+\item{object}{an 'inspect' class object}
+
+\item{...}{other arguments to be passed to methods are not used}
 }
 \description{
 Summary function for 'inspect' class objects

@@ -4,10 +4,12 @@
 \alias{plot.inspect}
 \title{Plot function for 'inspect' class objects}
 \usage{
-\method{plot}{inspect}(obj, ...)
+\method{plot}{inspect}(x, ...)
 }
 \arguments{
-\item{obj}{an 'inspect' class object}
+\item{x}{an 'inspect' class object}
+
+\item{...}{other arguments to be passed to methods are not used}
 }
 \description{
 Plot function for 'inspect' class objects

@@ -4,10 +4,10 @@
 \alias{plot.hdchangeseq}
 \title{Plot function for 'hdchangeseq' class}
 \usage{
-\method{plot}{hdchangeseq}(obj, noise = TRUE, shuffle = FALSE, ...)
+\method{plot}{hdchangeseq}(x, noise = TRUE, shuffle = FALSE, ...)
 }
 \arguments{
-\item{obj}{An object of 'hdchangeseq' class}
+\item{x}{An object of 'hdchangeseq' class}
 
 \item{noise}{If noise == TRUE, the data matrix is plotted, otherwise, only the mean structure is plotted.}
 

@@ -11,7 +11,7 @@ compute.threshold(n, p, nrep = 100)
 
 \item{p}{Dimension of the multivariate time series.}
 
-\item{Number}{of Monte Carlo repetition to be used.}
+\item{nrep}{Number of Monte Carlo repetition to be used.}
 }
 \value{
 A numeric value indicating the threshold level that should be used based on the Monte Carlo simulation.
