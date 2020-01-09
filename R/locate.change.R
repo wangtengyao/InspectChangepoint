@@ -74,7 +74,7 @@ locate.change <- function(x, lambda, schatten=2, sample.splitting=FALSE,
     ret$changepoint <- which.max(abs(cusum.proj))
     if (sample.splitting) ret$changepoint <- ret$changepoint * 2
     ret$cusum <- max(abs(cusum.proj))
-    ret$vector.proj <- vector.proj
+    ret$vector.proj <- as.numeric(vector.proj)
 
     return(ret)
 }
