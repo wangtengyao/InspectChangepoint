@@ -13,9 +13,9 @@
 #' @param corr Used to specify correlation structure in the noise. See \code{noise} for more details.
 #'
 #' @return An S3 object of the class 'hdchangeseq' is returned.
-#' \list{
-#' \item x - The generated data matrix
-#' \item mu - The mean structure of the data matrix
+#' \itemize{
+#'   \item x - The generated data matrix
+#'   \item mu - The mean structure of the data matrix
 #' }
 #'
 #' @seealso \code{\link{plot.hdchangeseq}}

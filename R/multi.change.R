@@ -9,9 +9,9 @@
 #' @param overlap A number between 0 and 1. The proportion of overlap in the signal coordinates for successive changepoints.
 #' @param shape How the signal strength is distributed across signal coordinates. When shape = 0, all signal coordinates are changed by the same amount; when shape = 1, their signal strength are proportional to 1, sqrt(2), ..., sqrt(k); when shape = 2, they are proportional to 1, 2, ..., k; when shape = 3, they are proportional to 1, 1/sqrt(2), ..., 1/sqrt(k).
 #' @return An S3 object of the class 'hdchangeseq' is returned.
-#' \list{
-#' \item x - The generated data matrix
-#' \item mu - The mean structure of the data matrix
+#' \itemize{
+#'   \item x - The generated data matrix
+#'   \item mu - The mean structure of the data matrix
 #' }
 #'
 #' @seealso \code{\link{plot.hdchangeseq}}
