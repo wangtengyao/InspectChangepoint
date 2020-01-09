@@ -2,12 +2,12 @@
 % Please edit documentation in R/power.method.R
 \name{power.method}
 \alias{power.method}
-\title{Power method for finding the leading left singular vector of a matrix}
+\title{Power method for finding the leading eigenvector of a symmetric matrix}
 \usage{
 power.method(A, eps = 1e-10, maxiter = 10000)
 }
 \arguments{
-\item{A}{a rectangular}
+\item{A}{a square symmetric matrix}
 
 \item{eps}{tolerance for convergence (in Frobenius norm)}
 
@@ -17,5 +17,5 @@ power.method(A, eps = 1e-10, maxiter = 10000)
 a unit-length leading eigenvector of A
 }
 \description{
-Power method for finding the leading left singular vector of a matrix
+Power method for finding the leading eigenvector of a symmetric matrix
 }
