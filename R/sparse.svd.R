@@ -20,33 +20,38 @@
 #' @export
 
 sparse.svd <- function(Z, lambda, schatten=c(1, 2), tolerance=1e-5, max.iter=10000){
-    if (missing(schatten)) schatten <- 2
-    if (schatten == 2){
-        # with Frobenius norm constraint, the sparse vector is obtained by soft
-        # thresholding
-        Mhat <- vector.soft.thresh(Z, lambda)
-    } else {
-        # with nuclear norm constraint, the sparse vector is obtained by ADMM
-        p <- dim(Z)[1]; n <- dim(Z)[2]; gamma <- 1;
-        X <- matrix(0,p,n); Y <- matrix(0,p,n); U <- matrix(0,p,n)
-        iter <- 0
-        while ((iter < max.iter) | (max.iter == 0)) {
-            iter <- iter + 1
-            X <- PiS(Y - U + gamma * Z)
-            Y <- vector.soft.thresh(X + U, lambda * gamma)
-            U <- U + (X - Y)
-            if (vector.norm(X - Y) < tolerance) break
-        }
-        Mhat <- X
+  if (missing(schatten)) schatten <- 2
+  if (schatten == 2){
+    # with Frobenius norm constraint, the sparse vector is obtained by soft
+    # thresholding
+    Mhat <- vector.soft.thresh(Z, lambda)
+  } else {
+    # with nuclear norm constraint, the sparse vector is obtained by ADMM
+    p <- dim(Z)[1]; n <- dim(Z)[2]; gamma <- 1;
+    X <- matrix(0,p,n); Y <- matrix(0,p,n); U <- matrix(0,p,n)
+    iter <- 0
+    while ((iter < max.iter) | (max.iter == 0)) {
+      iter <- iter + 1
+      X <- PiS(Y - U + gamma * Z)
+      Y <- vector.soft.thresh(X + U, lambda * gamma)
+      U <- U + (X - Y)
+      if (vector.norm(X - Y) < tolerance) break
     }
+    Mhat <- X
+  }
 
+  if (sum(Mhat^2)!=0){
     if (nrow(Mhat) < ncol(Mhat)){
-        vector.proj <- power.method(Mhat%*%t(Mhat), 1e-5)
+      vector.proj <- power.method(Mhat%*%t(Mhat), 1e-5)
     } else {
-        tmp <- Mhat %*% power.method(t(Mhat)%*%Mhat, 1e-5)
-        vector.proj <- tmp/vector.norm(tmp)
+      tmp <- Mhat %*% power.method(t(Mhat)%*%Mhat, 1e-5)
+      vector.proj <- tmp/vector.norm(tmp)
     }
-
-    return(vector.proj)
+  } else {
+    # if the thresholded matrix is zero, return a random vector
+    vector.proj <- rnorm(p)
+    vector.proj <- vector.proj / vector.norm(vector.proj)
+  }
+  return(vector.proj)
 }
 
