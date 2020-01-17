@@ -1,7 +1,7 @@
 Package: InspectChangepoint
 Type: Package
 Title: High-Dimensional Changepoint Estimation via Sparse Projection
-Version: 1.1
+Version: 1.1.1
 Date: 2020-01-09
 Author: Tengyao Wang and Richard Samworth
 Maintainer: Tengyao Wang <tengyao.wang@ucl.ac.uk>
