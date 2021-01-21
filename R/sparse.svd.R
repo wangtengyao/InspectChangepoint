@@ -40,13 +40,9 @@ sparse.svd <- function(Z, lambda, schatten=c(1, 2), tolerance=1e-5, max.iter=100
     Mhat <- X
   }
 
+  # compute the leading left singular vector of Mhat
   if (sum(Mhat^2)!=0){
-    if (nrow(Mhat) < ncol(Mhat)){
-      vector.proj <- power.method(Mhat%*%t(Mhat), 1e-5)
-    } else {
-      tmp <- Mhat %*% power.method(t(Mhat)%*%Mhat, 1e-5)
-      vector.proj <- tmp/vector.norm(tmp)
-    }
+    vector.proj <- svd(Mhat)$u[,1]
   } else {
     # if the thresholded matrix is zero, return a random vector
     vector.proj <- rnorm(p)
