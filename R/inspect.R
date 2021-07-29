@@ -54,8 +54,8 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
     window_e <- pmax(rnd1, rnd2) + 2
 
     # recursive function for binary segmentation
-    BinSeg <- function(x, s, e, depth, parent.val){
-        if (e - s <= 2) return(NULL) # stop when the segment has only one point
+    BinSeg <- function(x, s, e, depth){
+        if (e - s <= 1) return(NULL) # stop when the segment has only one point
         ind <- (window_s >= s) & (window_e <= e) # \mathcal{M}_{s,e}
         max.val <- -1
         cp <- 0
@@ -83,18 +83,19 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
         if (ret$max.proj.cusum < threshold) {
             return(NULL)
         } else {
-            return(cbind(BinSeg(x, s, cp, depth + 1, ret$max.proj.cusum),
+            return(cbind(BinSeg(x, s, cp, depth + 1),
                          ret,
-                         BinSeg(x, cp, e, depth + 1, ret$max.proj.cusum)))
+                         BinSeg(x, cp, e, depth + 1)))
         }
     }
 
     # return all changepoints of x
     ret <- NULL
     ret$x <- x
-    ret$changepoints <- BinSeg(x, 0, n, depth=1, parent.val=.Machine$double.xmax)
-    ret$changepoints <- t(matrix(as.numeric(ret$changepoints), nrow = 3))
-    colnames(ret$changepoints) = c('location', 'max.proj.cusum', 'depth')
+    ret$changepoints <- BinSeg(x, 0, n, depth=1)
+    ret$changepoints <- t(apply(ret$changepoints, 2, unlist))
+    rownames(ret$changepoints) <- NULL
+
     class(ret) <- 'inspect'
     return(ret)
 }
