@@ -4,8 +4,7 @@
 \alias{sparse.svd}
 \title{Computing the sparse leading left singular vector of a matrix}
 \usage{
-sparse.svd(Z, lambda, schatten = c(1, 2), tolerance = 1e-05,
-  max.iter = 10000)
+sparse.svd(Z, lambda, schatten = c(1, 2), tolerance = 1e-05, max.iter = 10000)
 }
 \arguments{
 \item{Z}{Input matrix whose left leading singular vector is to be estimated.}
@@ -13,10 +12,6 @@ sparse.svd(Z, lambda, schatten = c(1, 2), tolerance = 1e-05,
 \item{lambda}{Regularisation parameter}
 
 \item{schatten}{Schatten norm constraint to be used. Default uses Schatten-2-norm, i.e. the Frobenius norm. Also possible to use Schatten-1-norm, the nuclear norm.}
-
-\item{tolerance}{Tolerance criterion for convergence of the ADMM algorithm. Not used when shatten=2.}
-
-\item{max.iter}{Maximum number of iteration in the ADMM algorithm. Not used when shatten=2.}
 }
 \value{
 A vector that has the same length as nrow(Z) is returned.

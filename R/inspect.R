@@ -8,6 +8,7 @@
 #' @param threshold Threshold level for testing whether an identified changepoint is a true changepoint. If no value is supplied, the threshold level is computed via Monte Carlo simulation of 100 repetitions from the null model.
 #' @param schatten The Schatten norm constraint to use in the \code{\link{locate.change}} function. Default is schatten = 2, i.e. a Frobenius norm constraint.
 #' @param M The Monte Carlo parameter used for wild binary segmentation. Default is M = 0, which means a classical binary segmentation scheme is used.
+#' @param missing_data How missing data in x should be handled. If missing_data='meanImpute', then missing data are imputed with row means; if 'MissInspect', use the MissInspect algorithm of Follain et al. (2022)' if 'auto', the program will make the choice depending on the amount of missingness.
 #'
 #' @details The input time series is first standardised using the \code{\link{rescale.variance}} function. Recursive calls of the \code{\link{locate.change}} function then segments the multivariate time series using (wild) binary segmentation. A changepoint at time z is defined here to mean that the time series has constant mean structure for time up to and including z and constant mean structure for time from z+1 onwards.
 #'
@@ -20,6 +21,7 @@
 #' }
 #'
 #' @references Wang, T. and Samworth, R. J. (2018) High dimensional changepoint estimation via sparse projection. \emph{J. Roy. Statist. Soc., Ser. B}, \strong{80}, 57--83.
+#' Follain, B., Wang, T. and Samworth R. J. (2022) High-dimensional changepoint estimation with heterogeneous missingness. \emph{J. Roy. Statist. Soc., Ser. B}, to appear
 #'
 #' @examples
 #' n <- 500; p <- 100; ks <- 30; zs <- c(125,250,375)
@@ -35,7 +37,7 @@
 #' @import graphics
 #' @export
 
-inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
+inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('auto', 'meanImpute', 'MissInspect')){
     # basic parameters and initialise
     x <- as.matrix(x)
     if (dim(x)[2] == 1) x <- t(x) # treat univariate time series as a row vector
@@ -45,6 +47,20 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
     if (missing(threshold)) threshold <- compute.threshold(n, p)
     if (missing(schatten)) schatten <- 2
     if (missing(M)) M <- 0
+    if (missing(missing_data) || missing_data=='auto'){
+        if (mean(is.na(x)) < 0.1) {
+            missing_data <- 'meanImpute'
+        } else {
+            missing_data <- 'MissInspect'
+        }
+    }
+
+    # mean impute if necessary
+    if (missing_data == 'meanImpute'){
+        row_means <- rowMeans(x, na.rm=TRUE)
+        x[is.na(x)] <- rep(row_means, ncol(x))[is.na(x)]
+    }
+
     x <- rescale.variance(x)
 
     # generate random time windows of length at least 2
@@ -68,7 +84,13 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M){
                 s_m <- window_s[m]
                 e_m <- window_e[m]
             }
-            obj <- locate.change(x[,(s_m+1):e_m])
+
+            if (missing_data=='meanImpute'){
+                obj <- locate.change(x[,(s_m+1):e_m])
+            } else {
+                obj <- locate.change.missing(x[,(s_m+1):e_m])
+            }
+
             if (obj$cusum > max.val) {
                 max.val <- obj$cusum
                 cp <- s_m + obj$changepoint

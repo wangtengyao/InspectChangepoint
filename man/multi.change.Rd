@@ -4,8 +4,7 @@
 \alias{multi.change}
 \title{Generating a high-dimensional time series with multiple changepoints}
 \usage{
-multi.change(n, p, ks, zs, varthetas, sigma = 1, overlap = 0,
-  shape = 3)
+multi.change(n, p, ks, zs, varthetas, sigma = 1, overlap = 0, shape = 3)
 }
 \arguments{
 \item{n}{Time length of the observation}

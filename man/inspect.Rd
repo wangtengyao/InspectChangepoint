@@ -16,6 +16,8 @@ inspect(x, lambda, threshold, schatten=c(1,2), M)
 \item{schatten}{The Schatten norm constraint to use in the \code{\link{locate.change}} function. Default is schatten = 2, i.e. a Frobenius norm constraint.}
 
 \item{M}{The Monte Carlo parameter used for wild binary segmentation. Default is M = 0, which means a classical binary segmentation scheme is used.}
+
+\item{missing_data}{How missing data in x should be handled. If missing_data='meanImpute', then missing data are imputed with row means; if 'MissInspect', use the MissInspect algorithm of Follain et al. (2022)' if 'auto', the program will make the choice depending on the amount of missingness.}
 }
 \value{
 The return value is an S3 object of class 'inspect'. It contains a list of two objeccts:
@@ -45,4 +47,5 @@ plot(ret)
 }
 \references{
 Wang, T. and Samworth, R. J. (2018) High dimensional changepoint estimation via sparse projection. \emph{J. Roy. Statist. Soc., Ser. B}, \strong{80}, 57--83.
+Follain, B., Wang, T. and Samworth R. J. (2022) High-dimensional changepoint estimation with heterogeneous missingness. \emph{J. Roy. Statist. Soc., Ser. B}, to appear
 }

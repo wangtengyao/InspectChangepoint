@@ -78,3 +78,63 @@ locate.change <- function(x, lambda, schatten=2, sample.splitting=FALSE,
 
     return(ret)
 }
+
+#' Single changepoint estimation with missing data
+#' @param x A (p x n) data matrix of multivariate time series, each column
+#' represents a data point
+#' @param lambda Regularisation parameter. If no value is supplied, the dafault
+#' value is chosen to be sqrt(log(log(n)*p/2)) for p and n number of rows and
+#' columns of the data matrix x respectively.
+#' @param schatten The Schatten norm constraint to use in the \code{\link{sparse.svd}}
+#'  function. Default is schatten = 2, i.e. a Frobenius norm constraint.
+#' @param sample.splitting Whether the changepoint should be estimated via
+#' sample splitting. The theoretical result is proven only for the sample
+#' splitted version of the algorithm. However, the default setting in practice
+#' is without sample splitting.
+#' @param standardize.series Whether the given time series should be
+#' standardised before estimating the projection direction. Default is FALSE,
+#' i.e. the input series is assume to have variance 1 in each coordinate.
+#' @param view.cusum Whether to show a plot of the projected CUSUM series
+#' @return A list of two items:
+#' \itemize{
+#'   \item changepoint - A single integer value estimate of the changepoint
+#'   location is returned. If the estimated changepoint is z, it means that the
+#'   multivariate time series is piecewise constant up to z and from z+1
+#'   onwards.
+#'   \item cusum - The maximum absolute CUSUM statistic of the projected
+#'   univariate time series associated with the estimated changepoint.
+#'   \item vector.proj - the vector of projection, which is proportional to an estimate of the vector of change.
+#' }
+#' @references Wang, T., Samworth, R. J. (2016) High-dimensional changepoint estimation via sparse projection. Arxiv preprint: arxiv1606.06246.
+#' @examples
+#' n <- 2000; p <- 1000; k <- 32; z <- 400; vartheta <- 0.12; sigma <- 1; shape <- 3
+#' noise <- 0; corr <- 0
+#' obj <- single.change(n,p,k,z,vartheta,sigma,shape,noise,corr)
+#' x <- obj$x
+#' locate.change(x)
+#' @export
+
+locate.change.missing <- function(x, lambda, standardize.series=FALSE, view.cusum=FALSE){
+    if (!is.matrix(x)) x <- t(x)
+    p <- nrow(x)
+    n <- ncol(x)
+    if (missing(lambda)) lambda <- sqrt(n*log(p*log(n)))/2
+    if (standardize.series) x <- rescale.variance(x)
+
+    x.cusum <- cusum.transform.missing(x)
+    lambda <- min(lambda, max(apply(x.cusum, 1, vector.norm)) - 1e-10)
+
+    vhat <- sparse.svd.missing(x.cusum, lambda)
+
+    x.cusum.proj <- colSums(as.vector(vhat) * x.cusum)
+    if (-min(x.cusum.proj) > max(x.cusum.proj))
+        x.cusum.proj <- -x.cusum.proj
+
+    cp <- median(which(x.cusum.proj == max(x.cusum.proj)))
+    if (view.cusum) {
+        plot(x.cusum.proj, ylab = "projected cusum", pch = 20)
+    }
+    attr(cp, 'cusum') <- x.cusum.proj
+    attr(cp, 'vhat') <- vhat
+    return(cp)
+}

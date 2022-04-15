@@ -5,8 +5,7 @@
 \title{Generating high-dimensional time series with exactly one change in the mean
 structure}
 \usage{
-single.change(n, p, k, z, vartheta, sigma = 1, shape = 3, noise = 0,
-  corr = 0)
+single.change(n, p, k, z, vartheta, sigma = 1, shape = 3, noise = 0, corr = 0)
 }
 \arguments{
 \item{n}{Time length of the observation}

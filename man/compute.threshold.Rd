@@ -4,7 +4,7 @@
 \alias{compute.threshold}
 \title{Computing threshold used in \code{inspect}}
 \usage{
-compute.threshold(n, p, nrep = 100)
+compute.threshold(n, p, nrep = 100, show_progress = TRUE)
 }
 \arguments{
 \item{n}{Time length of the observation.}
@@ -12,6 +12,8 @@ compute.threshold(n, p, nrep = 100)
 \item{p}{Dimension of the multivariate time series.}
 
 \item{nrep}{Number of Monte Carlo repetition to be used.}
+
+\item{show_progress}{whether to show the progress of Monte Carlo simulation}
 }
 \value{
 A numeric value indicating the threshold level that should be used based on the Monte Carlo simulation.

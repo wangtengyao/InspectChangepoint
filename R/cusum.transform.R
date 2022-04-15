@@ -31,3 +31,33 @@ cusum.transform <- function(x){
   return(cusum)
 }
 
+#' MissCUSUM transformation of a single vector with missing entries
+#' @param x a vector with missing entries represented by NA
+#' @return MissCUSUM transformed vector
+#' @export
+cusum.univariate.missing <- function(x){
+  ob <- !is.na(x)
+  z <- replace(x, !ob, 0)
+  n <- length(x)
+  leftsum <- cumsum(z)
+  rightsum <- leftsum[n] - leftsum
+  L <- cumsum(ob)
+  R <- L[n] - L
+  x.cusum <- (leftsum[-n] / L[-n] - rightsum[-n] / R[-n]) * sqrt(L[-n] * R[-n] / L[n])
+  x.cusum[is.nan(x.cusum)] <- 0
+  x.cusum
+}
+
+#' MissCUSUM transformation of a matrix with missing entries
+#' @param x a matrix with missing entries represented by NA
+#' @return MissCUSUM transformed matrix
+#' @export
+cusum.transform.missing <- function(x){
+  if (!is.matrix(x)) {
+    return(cusum.univariate.missing(x))
+  } else if (ncol(x)==2){
+    return(as.matrix(apply(x, 1, cusum.univariate.missing)))
+  } else {
+    return(t(apply(x, 1, cusum.univariate.missing)))
+  }
+}
