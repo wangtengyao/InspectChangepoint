@@ -94,7 +94,6 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
             } else {
                 obj <- locate.change.missing(x[,(s_m+1):e_m], lambda)
             }
-
             if (obj$cusum > max.val) {
                 max.val <- obj$cusum
                 cp <- s_m + obj$changepoint

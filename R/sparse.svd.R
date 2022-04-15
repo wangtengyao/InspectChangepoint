@@ -58,6 +58,7 @@ sparse.svd <- function(Z, lambda, schatten=c(1, 2), tolerance=1e-5, max.iter=100
 #' @param lambda Regularisation parameter
 #' @param max_iter maximum iteration
 #' @param tol tolerance level for convergence
+#' @export
 sparse.svd.missing <- function(Z, lambda, max_iter=1000, tol=1e-10){
 
   if (sum(abs(Z)) == 0) return(random.UnitVector(nrow(Z)))
