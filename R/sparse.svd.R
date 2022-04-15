@@ -44,7 +44,7 @@ sparse.svd <- function(Z, lambda, schatten=c(1, 2), tolerance=1e-5, max.iter=100
       vector.proj <- RSpectra::svds(Mhat, 1)$u[,1]
     } else {
       if (max(dim(Mhat)) > 2000){
-        warning('Dimension of X is large, it is recommend to install the RSpectra package first.')
+        warning('Dimension of data matrix is large, it is recommend to install the RSpectra package first.')
       }
       vector.proj <- svd(Mhat)$u[,1]
     }
@@ -66,12 +66,12 @@ sparse.svd.missing <- function(Z, lambda, max_iter=1000, tol=1e-10){
   if (sum(abs(Z)) == 0) return(random.UnitVector(nrow(Z)))
 
   if (require(RSpectra, attach.required=FALSE)){
-    vhat <- RSpectra::svds(Mhat, 1)$u[,1]
+    vhat <- RSpectra::svds(Z, 1)$u[,1]
   } else {
-    if (max(dim(Mhat)) > 2000){
-      warning('Dimension of X is large, it is recommend to install the RSpectra package first.')
+    if (max(dim(Z)) > 2000){
+      warning('Dimension of data matrix is large, it is recommend to install the RSpectra package first.')
     }
-    vhat <- svd(Mhat)$u[,1]
+    vhat <- svd(Z)$u[,1]
   }
 
   for (iter in 1:max_iter){

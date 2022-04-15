@@ -1,7 +1,7 @@
 #' Informative sparse projection for estimation of changepoints (inspect)
 #' @description This is the main function of the package InspectChangepoint. The function \code{inspect} estimates the locations of multiple changepoints in the mean structure of a multivariate time series. Multiple changepoints are estimated using a (wild) binary segmentation scheme, whereas each segmentation step uses the \code{\link{locate.change}} function.
 #'
-#' @usage inspect(x, lambda, threshold, schatten=c(1,2), M)
+#' @usage inspect(x, lambda, threshold, schatten=c(1,2), M, missing_data='auto')
 #'
 #' @param x The input data matrix of a high-dimensional time series, with each component time series stored as a row.
 #' @param lambda Regularisation parameter used in \code{\link{locate.change}}.  If no value is supplied, the dafault value is chosen to be log(log(n)*p/2), where p and n are the number of rows and columns of the data matrix x respectively.

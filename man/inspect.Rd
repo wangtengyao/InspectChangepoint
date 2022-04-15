@@ -4,7 +4,7 @@
 \alias{inspect}
 \title{Informative sparse projection for estimation of changepoints (inspect)}
 \usage{
-inspect(x, lambda, threshold, schatten=c(1,2), M)
+inspect(x, lambda, threshold, schatten=c(1,2), M, missing_data='auto')
 }
 \arguments{
 \item{x}{The input data matrix of a high-dimensional time series, with each component time series stored as a row.}
