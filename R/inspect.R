@@ -107,7 +107,7 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
         if (max.val < threshold) {
             return(NULL)
         } else {
-            if (show_progress) cat('Changepoint identified at', ret['location'], '\n')
+            if (show_progress) cat('Changepoint identified at', ret['location'], 'with CUSUM', ret['max.proj.cusum'], '\n')
             return(rbind(BinSeg(x, s, cp, depth + 1),
                          ret,
                          BinSeg(x, cp, e, depth + 1)))
