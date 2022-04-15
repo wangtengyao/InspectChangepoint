@@ -98,14 +98,12 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
         }
 
         # recurse
-        ret <- NULL
-        ret$location <- cp
-        ret$max.proj.cusum <- max.val #min(parent.val, max.val)
-        ret$depth <- depth
-        if (ret$max.proj.cusum < threshold) {
+        ret <- setNames(c(cp, max.val, depth), c('location', 'max.proj.cusum', 'depth'))
+
+        if (ret['max.proj.cusum'] < threshold) {
             return(NULL)
         } else {
-            return(cbind(BinSeg(x, s, cp, depth + 1),
+            return(rbind(BinSeg(x, s, cp, depth + 1),
                          ret,
                          BinSeg(x, cp, e, depth + 1)))
         }
@@ -115,7 +113,6 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
     ret <- NULL
     ret$x <- x
     ret$changepoints <- BinSeg(x, 0, n, depth=1)
-    ret$changepoints <- t(apply(ret$changepoints, 2, unlist))
     rownames(ret$changepoints) <- NULL
 
     class(ret) <- 'inspect'
