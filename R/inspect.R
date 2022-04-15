@@ -9,6 +9,7 @@
 #' @param schatten The Schatten norm constraint to use in the \code{\link{locate.change}} function. Default is schatten = 2, i.e. a Frobenius norm constraint.
 #' @param M The Monte Carlo parameter used for wild binary segmentation. Default is M = 0, which means a classical binary segmentation scheme is used.
 #' @param missing_data How missing data in x should be handled. If missing_data='meanImpute', then missing data are imputed with row means; if 'MissInspect', use the MissInspect algorithm of Follain et al. (2022)' if 'auto', the program will make the choice depending on the amount of missingness.
+#' @param show_progress whether to display progress of computation
 #'
 #' @details The input time series is first standardised using the \code{\link{rescale.variance}} function. Recursive calls of the \code{\link{locate.change}} function then segments the multivariate time series using (wild) binary segmentation. A changepoint at time z is defined here to mean that the time series has constant mean structure for time up to and including z and constant mean structure for time from z+1 onwards.
 #'
@@ -37,14 +38,14 @@
 #' @import graphics
 #' @export
 
-inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('auto', 'meanImpute', 'MissInspect')){
+inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('auto', 'meanImpute', 'MissInspect'), show_progress=FALSE){
     # basic parameters and initialise
     x <- as.matrix(x)
     if (dim(x)[2] == 1) x <- t(x) # treat univariate time series as a row vector
     p <- dim(x)[1] # dimensionality of the time series
     n <- dim(x)[2] # time length of the observation
     if (missing(lambda)) lambda <- sqrt(log(log(n)*p)/2)
-    if (missing(threshold)) threshold <- compute.threshold(n, p)
+    if (missing(threshold)) threshold <- compute.threshold(n, p, show_progress=show_progress)
     if (missing(schatten)) schatten <- 2
     if (missing(M)) M <- 0
     if (missing(missing_data) || missing_data=='auto'){
@@ -103,6 +104,7 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
         if (ret['max.proj.cusum'] < threshold) {
             return(NULL)
         } else {
+            if (show_progress) cat('Changepoint identified at', ret['location'], '\n')
             return(rbind(BinSeg(x, s, cp, depth + 1),
                          ret,
                          BinSeg(x, cp, e, depth + 1)))

@@ -18,6 +18,8 @@ inspect(x, lambda, threshold, schatten=c(1,2), M, missing_data='auto')
 \item{M}{The Monte Carlo parameter used for wild binary segmentation. Default is M = 0, which means a classical binary segmentation scheme is used.}
 
 \item{missing_data}{How missing data in x should be handled. If missing_data='meanImpute', then missing data are imputed with row means; if 'MissInspect', use the MissInspect algorithm of Follain et al. (2022)' if 'auto', the program will make the choice depending on the amount of missingness.}
+
+\item{show_progress}{whether to display progress of computation}
 }
 \value{
 The return value is an S3 object of class 'inspect'. It contains a list of two objeccts:
