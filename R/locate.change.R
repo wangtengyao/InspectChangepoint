@@ -134,7 +134,11 @@ locate.change.missing <- function(x, lambda, standardize.series=FALSE, view.cusu
     if (view.cusum) {
         plot(x.cusum.proj, ylab = "projected cusum", pch = 20)
     }
-    attr(cp, 'cusum') <- x.cusum.proj
-    attr(cp, 'vhat') <- vhat
-    return(cp)
+
+    ret <- NULL
+    ret$changepoint <- cp
+    ret$cusum <- max(x.cusum.proj)
+    ret$vector.proj <- as.numeric(vhat)
+
+    return(ret)
 }
