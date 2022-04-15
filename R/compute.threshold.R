@@ -10,12 +10,13 @@
 #' @export
 
 compute.threshold <- function(n, p, nrep=100, show_progress=TRUE){
+    if (show_progress) cat('Calculating threshold... ')
     cusum.stats = rep(0,nrep)
     for (i in 1:nrep) {
         x <- single.change(n, p, 1, n - 1, 0)$x
         cusum.stats[i] = locate.change(x)$cusum
         if (show_progress) printPercentage(i, nrep)
     }
-    print()
+    cat('\n')
     return(as.numeric(max(cusum.stats)))
 }
