@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' n <- 500; p <- 100; ks <- 30; zs <- c(125,250,375)
-#' varthetas <- c(0.1,0.15,0.2); overlap <- 0.5
+#' varthetas <- c(0.2,0.4,0.6); overlap <- 0.5
 #' obj <- multi.change(n, p, ks, zs, varthetas, overlap)
 #' x <- obj$x
 #' threshold <- compute.threshold(n,p)
