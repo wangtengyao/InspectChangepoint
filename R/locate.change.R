@@ -130,7 +130,7 @@ locate.change.missing <- function(x, lambda, standardize.series=FALSE, view.cusu
     if (-min(x.cusum.proj) > max(x.cusum.proj))
         x.cusum.proj <- -x.cusum.proj
 
-    cp <- median(which(x.cusum.proj == max(x.cusum.proj)))
+    cp <- round(median(which(x.cusum.proj == max(x.cusum.proj))))
     if (view.cusum) {
         plot(x.cusum.proj, ylab = "projected cusum", pch = 20)
     }
