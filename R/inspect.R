@@ -108,7 +108,7 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
             return(NULL)
         } else {
             if (show_progress) cat('Changepoint identified at', ret['location'], '\n')
-            return(cbind(BinSeg(x, s, cp, depth + 1),
+            return(rbind(BinSeg(x, s, cp, depth + 1),
                          ret,
                          BinSeg(x, cp, e, depth + 1)))
         }
@@ -118,7 +118,6 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
     ret <- NULL
     ret$x <- x
     ret$changepoints <- BinSeg(x, 0, n, depth=1)
-    ret$changepoints <- t(ret$changepoints)
     rownames(ret$changepoints) <- NULL
 
     class(ret) <- 'inspect'
