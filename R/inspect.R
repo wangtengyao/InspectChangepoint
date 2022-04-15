@@ -42,6 +42,9 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
     # basic parameters and initialise
     x <- as.matrix(x)
     if (dim(x)[2] == 1) x <- t(x) # treat univariate time series as a row vector
+    if (prod(dim(x)) > 1e6 && !require(RSpectra, attach.required=FALSE)){
+      warning('Dimension of data matrix is large, it is recommend to install the RSpectra package first.')
+    }
     p <- dim(x)[1] # dimensionality of the time series
     n <- dim(x)[2] # time length of the observation
     if (missing(lambda)) lambda <- sqrt(log(log(n)*p)/2)
@@ -72,7 +75,7 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
 
     # recursive function for binary segmentation
     BinSeg <- function(x, s, e, depth){
-        if (e - s <= 1) return(NULL) # stop when the segment has only one point
+        if (e - s <= 2) return(NULL) # stop when the segment has only one point
         ind <- (window_s >= s) & (window_e <= e) # \mathcal{M}_{s,e}
         max.val <- -1
         cp <- 0
@@ -87,9 +90,9 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
             }
 
             if (missing_data=='meanImpute'){
-                obj <- locate.change(x[,(s_m+1):e_m])
+                obj <- locate.change(x[,(s_m+1):e_m], lambda, schatten)
             } else {
-                obj <- locate.change.missing(x[,(s_m+1):e_m])
+                obj <- locate.change.missing(x[,(s_m+1):e_m], lambda)
             }
 
             if (obj$cusum > max.val) {
@@ -101,11 +104,11 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
         # recurse
         ret <- setNames(c(cp, max.val, depth), c('location', 'max.proj.cusum', 'depth'))
 
-        if (ret['max.proj.cusum'] < threshold) {
+        if (max.val < threshold) {
             return(NULL)
         } else {
             if (show_progress) cat('Changepoint identified at', ret['location'], '\n')
-            return(rbind(BinSeg(x, s, cp, depth + 1),
+            return(cbind(BinSeg(x, s, cp, depth + 1),
                          ret,
                          BinSeg(x, cp, e, depth + 1)))
         }
@@ -115,6 +118,7 @@ inspect <- function(x, lambda, threshold, schatten=c(1, 2), M, missing_data=c('a
     ret <- NULL
     ret$x <- x
     ret$changepoints <- BinSeg(x, 0, n, depth=1)
+    ret$changepoints <- t(ret$changepoints)
     rownames(ret$changepoints) <- NULL
 
     class(ret) <- 'inspect'

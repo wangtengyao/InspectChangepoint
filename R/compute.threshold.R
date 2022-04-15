@@ -18,6 +18,6 @@ compute.threshold <- function(n, p, nrep=100, show_progress=TRUE){
         if (show_progress) printPercentage(i, nrep)
     }
     thresh <- as.numeric(max(cusum.stats))
-    cat('Threshold =', thresh, '\n')
+    cat('. Threshold =', thresh, '\n')
     return(thresh)
 }

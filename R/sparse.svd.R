@@ -40,12 +40,9 @@ sparse.svd <- function(Z, lambda, schatten=c(1, 2), tolerance=1e-5, max.iter=100
   # compute the leading left singular vector of Mhat
   if (sum(Mhat^2)!=0){
     # compute the leading left singular vector
-    if (require(RSpectra, attach.required=FALSE)){
+    if (require(RSpectra, attach.required=FALSE) && min(dim(Mhat)) >= 3){
       vector.proj <- RSpectra::svds(Mhat, 1)$u[,1]
     } else {
-      if (max(dim(Mhat)) > 2000){
-        warning('Dimension of data matrix is large, it is recommend to install the RSpectra package first.')
-      }
       vector.proj <- svd(Mhat)$u[,1]
     }
   } else {
@@ -65,12 +62,9 @@ sparse.svd.missing <- function(Z, lambda, max_iter=1000, tol=1e-10){
 
   if (sum(abs(Z)) == 0) return(random.UnitVector(nrow(Z)))
 
-  if (require(RSpectra, attach.required=FALSE)){
+  if (require(RSpectra, attach.required=FALSE) && min(dim(Z)) >= 3){
     vhat <- RSpectra::svds(Z, 1)$u[,1]
   } else {
-    if (max(dim(Z)) > 2000){
-      warning('Dimension of data matrix is large, it is recommend to install the RSpectra package first.')
-    }
     vhat <- svd(Z)$u[,1]
   }
 
